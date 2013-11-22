@@ -7,6 +7,11 @@ return [
 	'controllerPath' => dirname(__DIR__) . '/commands',
 	'controllerNamespace' => 'app\commands',
 	'extensions' => require(__DIR__ . '/../vendor/yiisoft/extensions.php'),
+
+	'modules' => [
+		'gii' => 'yii\\gii\\Module',
+	],
+
 	'components' => [
 		'cache' => [
 			'class' => 'yii\caching\FileCache',

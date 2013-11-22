@@ -35,8 +35,8 @@ class Generator extends \yii\gii\Generator
 
 	public function getDescription()
 	{
-		return 'This generator generates a controller and views that implement CRUD (Create, Read, Update, Delete)
-			operations for the specified data model.';
+		return 'This generator generates a controller and views that implement CRUD (Create, Read, Update, Delete) '
+			. 'operations for the specified data model.';
 	}
 
 	public function rules()

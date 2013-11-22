@@ -14,6 +14,7 @@ return [
 	'vendorPath' => dirname(dirname(__DIR__)) . '/vendor',
 	'controllerNamespace' => 'console\controllers',
 	'modules' => [
+		'gii' => 'yii\\gii\\Module',
 	],
 	'extensions' => require(__DIR__ . '/../../vendor/yiisoft/extensions.php'),
 	'components' => [

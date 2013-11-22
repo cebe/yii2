@@ -59,8 +59,8 @@ class Generator extends \yii\gii\Generator
 	 */
 	public function getDescription()
 	{
-		return 'This generator helps you to quickly generate a new controller class,
-			one or several controller actions and their corresponding views.';
+		return 'This generator helps you to quickly generate a new controller class, '
+			. 'one or several controller actions and their corresponding views.';
 	}
 
 	/**
