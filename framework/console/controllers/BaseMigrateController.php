@@ -52,7 +52,7 @@ abstract class BaseMigrateController extends Controller
      *
      * @see $migrationNamespaces
      */
-    public $migrationPath = '@app/migrations';
+    public $migrationPath = ['@app/migrations'];
     /**
      * @var array list of namespaces containing the migration classes.
      *
@@ -109,7 +109,11 @@ abstract class BaseMigrateController extends Controller
             }
 
             foreach ($this->migrationNamespaces as $key => $value) {
-                $this->migrationNamespaces[$key] = trim($value, '\\');
+                if (preg_match("/^[a-zA-Z0-9_\\\\]+$/", $value)) {
+                    $this->migrationNamespaces[$key] = trim($value, '\\');
+                } else {
+                    throw new InvalidConfigException('Migration namespace "'.$value.'" contains invalid chars.');
+                }
             }
 
             if (is_array($this->migrationPath)) {
