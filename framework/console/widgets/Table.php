@@ -251,19 +251,19 @@ class Table extends Widget
                             $arrayPointer[$index] = 0;
                         }
                     } else {
-                        $start = mb_strwidth($finalChunk[$index], Yii::$app->charset);
+                        $start = mb_strwidth(Console::stripAnsiFormat($finalChunk[$index]), Yii::$app->charset);
                     }
-                    $chunk = mb_substr($cell[$arrayPointer[$index]], $start, $cellSize - 4, Yii::$app->charset);
+                    $chunk = $this->ansiAwareSubstr($cell[$arrayPointer[$index]], $start, $cellSize - 4);
                     $finalChunk[$index] .= $chunk;
                     if (isset($cell[$arrayPointer[$index] + 1]) && $finalChunk[$index] === $cell[$arrayPointer[$index]]) {
                         $arrayPointer[$index]++;
                         $finalChunk[$index] = '';
                     }
                 } else {
-                    $chunk = mb_substr($cell, ($cellSize * $i) - ($i * 2), $cellSize - 2, Yii::$app->charset);
+                    $chunk = $this->ansiAwareSubstr($cell, ($cellSize * $i) - ($i * 2), $cellSize - 2);
                 }
                 $chunk = $prefix . $chunk;
-                $repeat = $cellSize - mb_strwidth($chunk, Yii::$app->charset) - 1;
+                $repeat = $cellSize - mb_strwidth(Console::stripAnsiFormat($chunk), Yii::$app->charset) - 1;
                 $buffer .= $chunk;
                 if ($repeat >= 0) {
                     $buffer .= str_repeat(' ', $repeat);
@@ -273,6 +273,31 @@ class Table extends Widget
         }
 
         return $buffer;
+    }
+
+    /**
+     * Ansi formatting code aware version of mb_substr().
+     * Will not count formatting characters into length
+     */
+    private function ansiAwareSubstr($string, $start, $len)
+    {
+        if (($pos = strpos($string, "\e")) === false || $pos > $start + $len) {
+            return mb_substr($string, $start, $len, Yii::$app->charset);
+        }
+        $result = '';
+        $strlen = mb_strlen($string, Yii::$app->charset);
+        for($i = 0; $i < $strlen; $i++) {
+            if ($string[$i] === "\e" && isset($string[$i + 1]) && $string[$i + 1] === '[') {
+                while($i < $strlen && $string[$i] !== 'm') {
+                    $i++;
+                }
+                continue;
+            }
+            if ($i >= $start && $i < $start + $len) {
+                $result .= $string[$i];
+            }
+        }
+        return $result;
     }
 
     /**
@@ -322,11 +347,12 @@ class Table extends Widget
         foreach ($columns as $column) {
             $columnWidth = max(array_map(function ($val) {
                 if (is_array($val)) {
-                    $encodings = array_fill(0, count($val), Yii::$app->charset);
-                    return max(array_map('mb_strwidth', $val, $encodings)) + mb_strwidth($this->_listPrefix, Yii::$app->charset);
+                    return max(array_map(function($v) {
+                        return mb_strwidth(Console::stripAnsiFormat($v), Yii::$app->charset);
+                    }, $val)) + mb_strwidth($this->_listPrefix, Yii::$app->charset);
                 }
 
-                return mb_strwidth($val, Yii::$app->charset);
+                return mb_strwidth(Console::stripAnsiFormat($val), Yii::$app->charset);
             }, $column)) + 2;
             $this->_columnWidths[] = $columnWidth;
             $totalWidth += $columnWidth;
@@ -367,11 +393,12 @@ class Table extends Widget
             return ceil($columnWidth / ($size - 2));
         }, $this->_columnWidths, array_map(function ($val) {
             if (is_array($val)) {
-                $encodings = array_fill(0, count($val), Yii::$app->charset);
-                return array_map('mb_strwidth', $val, $encodings);
+                return array_map(function($v) {
+                    return mb_strwidth(Console::stripAnsiFormat($v), Yii::$app->charset);
+                }, $val);
             }
 
-            return mb_strwidth($val, Yii::$app->charset);
+            return mb_strwidth(Console::stripAnsiFormat($val), Yii::$app->charset);
         }, $row)
         );
 
