@@ -363,6 +363,9 @@ class Table extends Widget
         if ($totalWidth > $screenWidth) {
             foreach ($this->_columnWidths as $j => $width) {
                 $this->_columnWidths[$j] = (int) ($width * $relativeWidth);
+                if ($this->_columnWidths[$j] < 3) {
+                    $this->_columnWidths[$j] = 3;
+                }
                 if ($j === count($this->_columnWidths)) {
                     $this->_columnWidths = $totalWidth;
                 }

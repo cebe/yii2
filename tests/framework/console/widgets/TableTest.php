@@ -324,4 +324,27 @@ EXPECTED;
         );
     }
 
+    public function testTableTooSmallScreen()
+    {
+        $table = new Table();
+
+        // test fullwidth chars
+        // @see https://en.wikipedia.org/wiki/Halfwidth_and_fullwidth_forms
+        $expected = <<<EXPECTED
+╔══════════════╗
+║ testcontent1 ║
+║ testcontent2 ║
+║ testcontent3 ║
+╚══════════════╝
+
+EXPECTED;
+
+        $this->assertEqualsWithoutLE($expected, $table
+            ->setRows([
+                [Console::ansiFormat('testcontent1testcontent2testcontent3', [Console::FG_BLUE])],
+            ])->setScreenWidth(2)->run()
+        );
+    }
+
+
 }
