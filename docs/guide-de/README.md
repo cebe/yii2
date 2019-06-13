@@ -27,8 +27,8 @@ Einstieg
 * [Ausblick](start-looking-ahead.md)
 
 
-Application Struktur
---------------------
+Applikations-Struktur
+---------------------
 
 * [Überblick](structure-overview.md)
 * [Entry Scripts](structure-entry-scripts.md)
