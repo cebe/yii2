@@ -183,7 +183,7 @@ sogenannten Submit-Button zu generieren.
 Testen <span id="trying-it-out"></span>
 ------
 
-Öffnen Sie in Ihrem Browser folgende URL um das ganze zu testen:
+Öffnen Sie in Ihrem Browser folgende URL um das Ganze zu testen:
 
 ```
 http://hostname/index.php?r=site%2Fentry

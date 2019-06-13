@@ -229,7 +229,7 @@ mit "Seiten-Buttons". Durch das klicken auf einen dieser Buttons werden die coun
 Testen <span id="trying-it-out"></span>
 ------
 
-Öffnen Sie in Ihrem Browser folgende URL um das ganze zu testen:
+Öffnen Sie in Ihrem Browser folgende URL um das Ganze zu testen:
 
 ```
 http://hostname/index.php?r=country%2Findex
