@@ -19,7 +19,7 @@ Einstieg
 --------
 
 * [Yii installieren](start-installation.md)
-* [Running Applications](start-workflow.md)
+* [Applikationen aufsetzen](start-workflow.md)
 * [Hallo sagen](start-hello.md)
 * [Arbeiten mit Formularen](start-forms.md)
 * [Arbeiten mit Datenbanken](start-databases.md)
@@ -27,8 +27,8 @@ Einstieg
 * [Ausblick](start-looking-ahead.md)
 
 
-Application Struktur
---------------------
+Applikations-Struktur
+---------------------
 
 * [Überblick](structure-overview.md)
 * [Entry Scripts](structure-entry-scripts.md)
@@ -172,7 +172,7 @@ Weitere Themen
 
 * [Advanced Application Template](tutorial-advanced-app.md)
 * [Building Application from Scratch](tutorial-start-from-scratch.md)
-* [Console Commands](tutorial-console.md)
+* [Konsolen Befehle](tutorial-console.md)
 * [Core Validators](tutorial-core-validators.md)
 * [Internationalization](tutorial-i18n.md)
 * [Mailing](tutorial-mailing.md)
